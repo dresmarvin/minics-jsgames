@@ -69,21 +69,21 @@ let secondTry = "";
 let previousTarget = null;
 
 grid.addEventListener( "click", function(event) {
-  let selected = event.target;
-  if(selected.nodeName === 'SECTION' || selected === previousTarget) {
-    return
+  let clicked = event.target;
+  if(clicked.nodeName === 'SECTION' || clicked === previousTarget || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
+    return;
   } if (count < 2) {
     count++;
     if (count ===1) {
       // First Try
-      firstTry = selected.parentNode.dataset.name;
+      firstTry = clicked.parentNode.dataset.name;
       console.log(firstTry);
-      selected.parentNode.classList.add('selected');
+      clicked.parentNode.classList.add('selected');
     } else {
       // Second Try
-      secondTry = selected.parentNode.dataset.name
+      secondTry = clicked.parentNode.dataset.name
       console.log(secondTry);
-      selected.parentNode.classList.add('selected');
+      clicked.parentNode.classList.add('selected');
     }
     if (firstTry !== "" && secondTry !== "") {
       if(firstTry === secondTry) {
@@ -93,7 +93,7 @@ grid.addEventListener( "click", function(event) {
           setTimeout(resetTries, delay);
         }
     }
-    previousTarget = selected;
+    previousTarget = clicked;
   };
 });
 
